@@ -24,12 +24,13 @@ COPY package.json package-lock.json ../
 
 # Install more dependencies
 RUN apk add --no-cache postgresql-libs && \
-	apk add --no-cache --virtual .build-deps gcc musl-dev postgresql-dev && \
+	apk add --no-cache --virtual .build-deps gcc musl-dev postgresql-dev libressl-dev libffi-dev && \
 	npm i -P --prefix .. && \
 	pip install poetry==1.2.2
 
 # Install Python dependencies
 RUN poetry config virtualenvs.create false && \
+    poetry run pip install "Cython<3.0" "pyyaml==5.4.1" --no-build-isolation && \
     poetry install --no-dev --no-interaction --no-ansi
 
 # Cleanup dependencies & setup user group
