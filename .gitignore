@@ -142,3 +142,4 @@ compiledstatic/
 
 # Pycharm
 .idea
+data/shynet.db.sqlite3

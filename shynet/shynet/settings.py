@@ -110,7 +110,8 @@ if os.getenv("SQLITE", "False") == "True":
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.sqlite3",
-            "NAME": os.environ.get("DB_NAME", "/var/local/shynet/db/db.sqlite3"),
+            #"NAME": os.environ.get("DB_NAME", "/var/local/shynet/db/db.sqlite3"),
+            "NAME": os.environ.get("DB_NAME", "/data/shynet.db.sqlite3"),
         }
     }
 else:
@@ -380,9 +381,10 @@ CORS_ALLOW_METHODS = ["GET", "OPTIONS"]
 
 # IPWare Precedence Options
 IPWARE_META_PRECEDENCE_ORDER = (
+    'HTTP_CLIENT_IP', 'X-Client-IP',
     'HTTP_CF_CONNECTING_IP',
-    'HTTP_X_FORWARDED_FOR', 'X_FORWARDED_FOR', # client, proxy1, proxy2
-    'HTTP_CLIENT_IP',
+    'HTTP_X_FORWARDED_FOR',
+    #'HTTP_X_FORWARDED_FOR', 'X_FORWARDED_FOR', # client, proxy1, proxy2
     'HTTP_X_REAL_IP',
     'HTTP_X_FORWARDED',
     'HTTP_X_CLUSTER_CLIENT_IP',
