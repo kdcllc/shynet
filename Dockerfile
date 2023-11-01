@@ -14,8 +14,8 @@ RUN apk update && \
 
 # Collect GeoIP Database
 RUN apk add --no-cache curl && \
-	curl -m 180 "https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-ASN&license_key=kKG1ebhL3iWVd0iv&suffix=tar.gz" | tar -xvz -C /tmp && \
-	curl -m 180 "https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-City&license_key=kKG1ebhL3iWVd0iv&suffix=tar.gz" | tar -xvz -C /tmp && \
+	curl -m 180 "https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-ASN&license_key=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&suffix=tar.gz" | tar -xvz -C /tmp && \
+	curl -m 180 "https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-City&license_key=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&suffix=tar.gz" | tar -xvz -C /tmp && \
 	mv /tmp/GeoLite2*/*.mmdb /etc && \
 	apk --purge del curl
 
@@ -31,9 +31,7 @@ RUN apk add --no-cache --virtual .build-deps gcc musl-dev postgresql-dev libress
 	poetry config virtualenvs.create false && \
 	poetry run pip install "Cython<3.0" "pyyaml==5.4.1" --no-build-isolation && \
 	poetry install --no-dev --no-interaction --no-ansi && \
-	apk --purge del .build-deps && \
-	rm -rf /var/lib/apt/lists/* && \
-	rm /var/cache/apk/*
+	apk --purge del .build-deps
 
 # Setup user group
 RUN addgroup --system -g $GF_GID appgroup && \
